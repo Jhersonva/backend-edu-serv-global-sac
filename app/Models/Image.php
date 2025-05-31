@@ -9,7 +9,7 @@ class Image extends Model
 {
     protected $fillable = ['url', 'imageable_id', 'imageable_type'];
 
-    protected $hidden = ['imageable_id', 'created_at', 'updated_at'];
+    protected $hidden = ['imageable_id', 'imageable_type', 'created_at', 'updated_at'];
 
     public function imageable() : MorphTo
     {
