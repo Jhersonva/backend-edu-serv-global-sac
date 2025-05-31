@@ -2,6 +2,7 @@
 use App\Http\Controllers\Api\Customer\CustomerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Home\HomeController;
+use App\Http\Controllers\Api\Blog\BlogController;
 
 //rutas de la api home
 Route::get('homes', [HomeController::class, 'index']);
@@ -16,3 +17,10 @@ Route::post('customers', [CustomerController::class, 'store']);
 Route::get('customers/{id}', [CustomerController::class, 'show']);
 Route::put('customers/{id}', [CustomerController::class, 'update']);
 Route::delete('customers/{id}', [CustomerController::class, 'destroy']);
+
+// Rutas de la API Blog
+Route::get('blogs', [BlogController::class, 'index']);            
+Route::post('blogs', [BlogController::class, 'store']);          
+Route::get('blogs/{id}', [BlogController::class, 'show']);       
+Route::put('blogs/{id}', [BlogController::class, 'update']);      
+Route::delete('blogs/{id}', [BlogController::class, 'destroy']); 
