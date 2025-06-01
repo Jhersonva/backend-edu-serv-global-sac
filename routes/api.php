@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Home\HomeController;
 use App\Http\Controllers\Api\Blog\BlogController;
 use App\Http\Controllers\Api\TeamInformation\TeamInformationController;
+use App\Http\Controllers\Api\ContactForm\ContactFormController;
+use App\Models\ContactForm;
 
 //rutas de la api home
 Route::get('homes', [HomeController::class, 'index']);
@@ -32,3 +34,10 @@ Route::post('team-information', [TeamInformationController::class, 'store']);
 Route::get('team-information/{id}', [TeamInformationController::class, 'show']);
 Route::put('team-information/{id}', [TeamInformationController::class, 'update']);
 Route::delete('team-information/{id}', [TeamInformationController::class, 'destroy']);
+
+// Rutas de la API ContactForm
+Route::get('contactforms', [ContactFormController::class, 'index']);
+Route::post('contactforms', [ContactFormController::class, 'store']);
+Route::get('contactforms/{id}', [ContactFormController::class, 'show']);
+Route::put('contactforms/{id}', [ContactFormController::class, 'update']);
+Route::delete('contactforms/{id}', [ContactFormController::class, 'destroy']);
