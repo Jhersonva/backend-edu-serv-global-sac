@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Blog\BlogController;
 use App\Http\Controllers\Api\TeamInformation\TeamInformationController;
 use App\Http\Controllers\Api\ContactForm\ContactFormController;
 use App\Models\ContactForm;
+use App\Http\Controllers\Api\AboutUs\AboutUsController;
 
 //rutas de la api home
 Route::get('homes', [HomeController::class, 'index']);
@@ -41,3 +42,9 @@ Route::post('contactforms', [ContactFormController::class, 'store']);
 Route::get('contactforms/{id}', [ContactFormController::class, 'show']);
 Route::put('contactforms/{id}', [ContactFormController::class, 'update']);
 Route::delete('contactforms/{id}', [ContactFormController::class, 'destroy']);
+// Rutas de la API AboutUs
+Route::get('about-us', [AboutUsController::class, 'index']);
+Route::post('about-us', [AboutUsController::class, 'store']);
+Route::get('about-us/{id}', [AboutUsController::class, 'show']);
+Route::put('about-us/{id}', [AboutUsController::class, 'update']);
+Route::delete('about-us/{id}', [AboutUsController::class, 'destroy']);
