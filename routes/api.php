@@ -7,6 +7,28 @@ use App\Http\Controllers\Api\TeamInformation\TeamInformationController;
 use App\Http\Controllers\Api\ContactForm\ContactFormController;
 use App\Http\Controllers\Api\CompanyContact\CompanyContactController;
 use App\Http\Controllers\Api\AboutUs\AboutUsController;
+use App\Http\Controllers\Api\AuthUsers\AuthUserController;
+use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\IsUserAuth;
+use App\Http\Middleware\NoUserExists;
+
+// Rutas de la API AuthUser
+Route::post('register', [AuthUserController::class, 'registerUser'])->middleware(NoUserExists::class);
+Route::post('login', [AuthUserController::class, 'loginUser']);
+
+Route::middleware(IsUserAuth::class)->group(function () {
+
+    // Rutas de la API AuthUser Authenticated
+    Route::controller(AuthUserController::class)->group(function () {
+        Route::post('refresh-token', 'refreshToken');
+        Route::post('logout', 'logout');
+        Route::get('user', 'getUser');
+    });
+
+    // Rutas de la API AuthUser -  Authenticated - Admin
+    Route::middleware(IsAdmin::class)->group(function () {
+    });
+});
 
 //rutas de la api home
 Route::get('homes', [HomeController::class, 'index']);
