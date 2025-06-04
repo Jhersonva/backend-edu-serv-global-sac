@@ -28,9 +28,17 @@ class SubCategoryController extends Controller
     }
 
     public function show($id)
-    {
-        return response()->json($this->service->findSubCategoryById($id));
+{
+    $service = $this->service->findSubCategoryById($id);
+
+    if (!$service) {
+        return response()->json([
+            'message' => "El servicio con ID $id ya fue eliminado o no existe."
+        ], 404);
     }
+
+    return response()->json($service);
+}
 
     public function update(UpdateSubCategoryRequest $request, $id)
     {
@@ -41,7 +49,7 @@ class SubCategoryController extends Controller
     public function destroy($id)
     {
         $deleted = $this->service->deleteSubCategory($id);
-        return response()->json(['deleted' => $deleted]);
+        return response()->json(['message' => 'SubCategory deleted']);
     }
 }
 

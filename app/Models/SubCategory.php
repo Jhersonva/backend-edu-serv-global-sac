@@ -14,6 +14,10 @@ class SubCategory extends Model
         'updated_at',
     ];
 
+    protected $casts = [
+        'benefits' => 'array',
+    ];
+    
     public function category()
     {
         return $this->belongsTo(Category::class);

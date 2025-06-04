@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 class Category extends Model
 {
     protected $fillable = ['name', 'description'];
@@ -23,6 +23,18 @@ class Category extends Model
     {
         return $this->morphOne(Image::class, 'imageable');
     }
+
+    
 }
 
-
+// public function services(): HasManyThrough
+    //{
+      //  return $this->hasManyThrough(
+        //    Service::class,        // Modelo destino
+          //  SubCategory::class,    // Modelo intermedio
+            //'category_id',         // FK en SubCategory → Category
+            //'sub_category_id',     // FK en Service → SubCategory
+            //'id',                  // PK en Category
+            //'id'                   // PK en SubCategory
+        //);
+    //}

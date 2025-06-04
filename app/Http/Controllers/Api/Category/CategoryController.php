@@ -28,9 +28,17 @@ class CategoryController extends Controller
     }
 
     public function show($id)
-    {
-        return response()->json($this->service->findCategoryById($id));
+{
+    $service = $this->service->findCategoryById($id);
+
+    if (!$service) {
+        return response()->json([
+            'message' => "El servicio con ID $id ya fue eliminado o no existe."
+        ], 404);
     }
+
+    return response()->json($service);
+}
 
     public function update(UpdateCategoryRequest $request, $id)
     {
@@ -41,7 +49,8 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $deleted = $this->service->deleteCategory($id);
-        return response()->json(['deleted' => $deleted]);
+        return response()->json(['message' => 'Category deleted']);
     }
+    
 }
 
