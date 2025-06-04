@@ -15,7 +15,7 @@ class StoreSubCategoryRequest extends FormRequest
     {
         return [
             'description' => 'required|string',
-            'benefits' => 'nullable|string|min:5',
+            'benefits' => 'nullable|array',
             'category_id' => 'required|exists:categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ];

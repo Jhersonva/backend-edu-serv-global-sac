@@ -28,9 +28,18 @@ class ServiceController extends Controller
     }
 
     public function show($id)
-    {
-        return response()->json($this->service->findServiceById($id));
+{
+    $service = $this->service->findServiceById($id);
+
+    if (!$service) {
+        return response()->json([
+            'message' => "El servicio no existe."
+        ], 404);
     }
+
+    return response()->json($service);
+}
+
 
     public function update(UpdateServiceRequest $request, $id)
     {
@@ -41,6 +50,6 @@ class ServiceController extends Controller
     public function destroy($id)
     {
         $deleted = $this->service->deleteService($id);
-        return response()->json(['deleted' => $deleted]);
+        return response()->json(['message' => 'Service deleted']);
     }
 }

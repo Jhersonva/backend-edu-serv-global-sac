@@ -18,7 +18,7 @@ class ServiceService
 
     public function findServiceById($id)
     {
-        return Service::with(['image', 'subCategory.image'])->findOrFail($id);
+        return Service::with(['image', 'subCategory.image'])->find($id);
     }
 
     public function storeService(array $data)

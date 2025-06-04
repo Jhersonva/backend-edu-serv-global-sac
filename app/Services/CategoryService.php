@@ -18,7 +18,8 @@ class CategoryService
 
     public function findCategoryById($id)
     {
-        return Category::with(['image', 'services.image'])->findOrFail($id);
+        return Category::with(['image', 'subCategories.services.image'])->find($id);
+
     }
 
     public function storeCategory(array $data)

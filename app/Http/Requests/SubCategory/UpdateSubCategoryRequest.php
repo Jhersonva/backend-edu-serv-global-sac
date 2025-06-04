@@ -15,7 +15,7 @@ class UpdateSubCategoryRequest extends FormRequest
     {
         return [
             'description' => 'sometimes|string|min:10',
-            'benefits' => 'nullable|string|min:5',
+            'benefits' => 'nullable|array',
             'category_id' => 'sometimes|exists:categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ];

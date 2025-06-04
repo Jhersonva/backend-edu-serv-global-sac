@@ -18,11 +18,14 @@ class SubCategoryService
 
     public function findSubCategoryById($id)
     {
-        return SubCategory::with('image')->findOrFail($id);
+        return SubCategory::with('image')->find($id);
     }
 
     public function storeSubCategory(array $data)
     {
+
+         $data['benefits'] = is_array($data['benefits']) ? $data['benefits'] : json_decode($data['benefits'], true);
+
         $imageFile = request()->file('image');
 
         $subCategory = SubCategory::create([
@@ -42,6 +45,10 @@ class SubCategoryService
     public function updateSubCategory($id, array $data)
     {
         $subCategory = SubCategory::with('image')->findOrFail($id);
+
+        if (isset($data['benefits'])) {
+            $data['benefits'] = is_array($data['benefits']) ? $data['benefits'] : json_decode($data['benefits'], true);
+        }
 
         $subCategory->update([
             'description' => $data['description'] ?? $subCategory->description,
