@@ -10,8 +10,9 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 255);
             $table->text('description')->nullable();
+            $table->foreignId('id_services_category')->constrained('services_category')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -5,27 +5,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-class SubCategory extends Model
+class ServicesCategory extends Model
 {
-    protected $fillable = ['description', 'benefits', 'category_id'];
+    protected $table = 'services_category';
+
+    protected $fillable = ['title', 'description', 'benefits', 'id_projects'];
 
     protected $hidden = [
         'created_at',
         'updated_at',
     ];
-
+    
     protected $casts = [
         'benefits' => 'array',
     ];
-    
-    public function category()
+
+    public function project()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Project::class, 'id_projects');
     }
 
-    public function services()
+    public function categories()
     {
-        return $this->hasMany(Service::class);
+        return $this->hasMany(Category::class, 'id_services_category');
     }
 
     public function image(): MorphOne
@@ -33,5 +35,4 @@ class SubCategory extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
 }
-
 

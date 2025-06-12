@@ -8,21 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sub_category_id');
-            $table->string('title');
+            $table->string('title', 255);
             $table->text('description')->nullable();
-            $table->json('benefits');
             $table->timestamps();
-
-            $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('cascade');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('projects');
     }
 };
-

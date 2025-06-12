@@ -3,54 +3,43 @@
 namespace App\Http\Controllers\Api\Category;
 
 use App\Http\Controllers\Controller;
+use App\Services\CategoryService;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
-use App\Services\CategoryService;
 
 class CategoryController extends Controller
 {
-    protected $service;
+    protected $categoryService;
 
-    public function __construct(CategoryService $service)
+    public function __construct(CategoryService $categoryService)
     {
-        $this->service = $service;
+        $this->categoryService = $categoryService;
     }
 
     public function index()
     {
-        return response()->json($this->service->getAllCategories());
+        return response()->json($this->categoryService->getAllCategory());
+    }
+
+    public function show($id)
+    {
+        return response()->json($this->categoryService->findByIdCategory($id));
     }
 
     public function store(StoreCategoryRequest $request)
     {
-        $created = $this->service->storeCategory($request->validated());
-        return response()->json($created, 201);
+        return response()->json($this->categoryService->storeCategory($request->validated()), 201);
     }
-
-    public function show($id)
-{
-    $service = $this->service->findCategoryById($id);
-
-    if (!$service) {
-        return response()->json([
-            'message' => "El servicio con ID $id ya fue eliminado o no existe."
-        ], 404);
-    }
-
-    return response()->json($service);
-}
 
     public function update(UpdateCategoryRequest $request, $id)
     {
-        $updated = $this->service->updateCategory($id, $request->validated());
-        return response()->json($updated);
+        return response()->json($this->categoryService->updateCategory($id, $request->validated()));
     }
 
     public function destroy($id)
     {
-        $deleted = $this->service->deleteCategory($id);
-        return response()->json(['message' => 'Category deleted']);
+        $this->categoryService->deleteCategory($id);
+        return response()->json(['message' => 'Category deleted successfully.']);
     }
-    
 }
 

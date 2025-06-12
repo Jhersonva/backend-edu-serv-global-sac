@@ -8,20 +8,18 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('sub_categories', function (Blueprint $table) {
+        Schema::create('services_category', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id');
+            $table->text('title');
             $table->text('description')->nullable();
-            $table->json('benefits');
+            $table->json('benefits')->nullable();
+            $table->foreignId('id_projects')->constrained('projects')->onDelete('cascade');
             $table->timestamps();
-
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('sub_categories');
+        Schema::dropIfExists('services_category');
     }
 };
-

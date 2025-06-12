@@ -2,37 +2,35 @@
 
 namespace App\Services;
 
-use App\Http\Service\Image\SaveImage;
-use App\Http\Service\Image\DeleteImage;
 use App\Models\Category;
 use Illuminate\Http\UploadedFile;
+use App\Http\Service\Image\SaveImage;
+use App\Http\Service\Image\DeleteImage;
 
 class CategoryService
 {
     use SaveImage, DeleteImage;
 
-    public function getAllCategories()
+    public function getAllCategory()
     {
-        return Category::with('image')->get();
+        return Category::with(['image', 'serviceCategory'])->get();
     }
 
-    public function findCategoryById($id)
+    public function findByIdCategory($id)
     {
-        return Category::with(['image', 'subCategories.services.image'])->find($id);
-
+        return Category::with(['image', 'serviceCategory'])->findOrFail($id);
     }
 
     public function storeCategory(array $data)
     {
-        $imageFile = request()->file('image');
-
         $category = Category::create([
             'name' => $data['name'],
-            'description' => $data['description'],
+            'description' => $data['description'] ?? null,
+            'id_services_category' => $data['id_services_category'],
         ]);
 
-        if ($imageFile instanceof UploadedFile) {
-            $path = $this->upload($imageFile, 'category');
+        if ($image = request()->file('image')) {
+            $path = $this->upload($image, 'categories');
             $category->image()->create(['url' => asset('storage/' . $path)]);
         }
 
@@ -46,10 +44,11 @@ class CategoryService
         $category->update([
             'name' => $data['name'] ?? $category->name,
             'description' => $data['description'] ?? $category->description,
+            'id_services_category' => $data['id_services_category'] ?? $category->id_services_category,
         ]);
 
-        if ($imageFile = request()->file('image')) {
-            $path = $this->upload($imageFile, 'category');
+        if ($image = request()->file('image')) {
+            $path = $this->upload($image, 'categories');
             $url = asset('storage/' . $path);
 
             if ($category->image) {
@@ -63,7 +62,7 @@ class CategoryService
         return $category->load('image');
     }
 
-    public function deleteCategory($id): bool
+    public function deleteCategory($id)
     {
         $category = Category::with('image')->findOrFail($id);
 
@@ -73,16 +72,5 @@ class CategoryService
         }
 
         return $category->delete();
-    }
-
-    public function filterCategories(?string $area = null)
-    {
-        $query = Category::with('image');
-
-        if ($area) {
-            $query->where('name', 'like', '%' . $area . '%');
-        }
-
-        return $query->get();
     }
 }
