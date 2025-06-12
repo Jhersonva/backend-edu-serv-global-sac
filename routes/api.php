@@ -8,9 +8,11 @@ use App\Http\Controllers\Api\ContactForm\ContactFormController;
 use App\Http\Controllers\Api\CompanyContact\CompanyContactController;
 use App\Http\Controllers\Api\AboutUs\AboutUsController;
 use App\Http\Controllers\Api\AuthUsers\AuthUserController;
-use App\Http\Controllers\Api\Servics\ServiceController;
+
 use App\Http\Controllers\Api\Category\CategoryController;
-use App\Http\Controllers\Api\SubCategory\SubCategoryController;
+use App\Http\Controllers\Api\ServicesCategory\ServicesCategoryController;
+use App\Http\Controllers\Api\Project\ProjectController;
+
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsUserAuth;
 use App\Http\Middleware\NoUserExists;
@@ -79,13 +81,6 @@ Route::get('/company-contact', [CompanyContactController::class, 'index']);
 Route::get('/company-contact/{id}', [CompanyContactController::class, 'show']);
 Route::put('/company-contact/{id}', [CompanyContactController::class, 'update']);
 
-// Rutas de la API Services
-Route::get('services', [ServiceController::class, 'index']);
-Route::post('services', [ServiceController::class, 'store']);
-Route::get('services/{id}', [ServiceController::class, 'show']);
-Route::put('services/{id}', [ServiceController::class, 'update']);
-Route::delete('services/{id}', [ServiceController::class, 'destroy']);
-
 // Rutas de la API Categories
 Route::get('categories', [CategoryController::class, 'index']);
 Route::post('categories', [CategoryController::class, 'store']);
@@ -93,9 +88,17 @@ Route::get('categories/{id}', [CategoryController::class, 'show']);
 Route::put('categories/{id}', [CategoryController::class, 'update']);
 Route::delete('categories/{id}', [CategoryController::class, 'destroy']);
 
-// Rutas de la API SubCategories
-Route::get('sub-categories', [SubCategoryController::class, 'index']);
-Route::post('sub-categories', [SubCategoryController::class, 'store']);
-Route::get('sub-categories/{id}', [SubCategoryController::class, 'show']);
-Route::put('sub-categories/{id}', [SubCategoryController::class, 'update']);
-Route::delete('sub-categories/{id}', [SubCategoryController::class, 'destroy']);
+// Rutas de la API Services Categories
+Route::get('/services-categories', [ServicesCategoryController::class, 'index']);
+Route::post('/services-categories', [ServicesCategoryController::class, 'store']);
+Route::get('/services-categories/{id}', [ServicesCategoryController::class, 'show']);
+Route::put('/services-categories/{id}', [ServicesCategoryController::class, 'update']);
+Route::delete('/services-categories/{id}', [ServicesCategoryController::class, 'destroy']);
+
+// Rutas de la API Projects
+Route::get('/projects', [ProjectController::class, 'index']);
+Route::post('/projects', [ProjectController::class, 'store']);
+Route::get('/projects/{id}', [ProjectController::class, 'show']);
+Route::put('/projects/{id}', [ProjectController::class, 'update']);
+Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
+
