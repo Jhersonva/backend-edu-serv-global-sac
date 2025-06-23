@@ -3,6 +3,7 @@ use App\Http\Controllers\Api\Customer\CustomerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Home\HomeController;
 use App\Http\Controllers\Api\Blog\BlogController;
+use App\Http\Controllers\Api\Links\LinksController;
 use App\Http\Controllers\Api\TeamInformation\TeamInformationController;
 use App\Http\Controllers\Api\ContactForm\ContactFormController;
 use App\Http\Controllers\Api\CompanyContact\CompanyContactController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Api\Collaborations\CollaborationsController;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsUserAuth;
 use App\Http\Middleware\NoUserExists;
+use App\Models\Links;
 
 // Rutas de la API AuthUser
 Route::post('register', [AuthUserController::class, 'registerUser'])->middleware(NoUserExists::class);
@@ -103,10 +105,9 @@ Route::get('/projects/{id}', [ProjectController::class, 'show']);
 Route::put('/projects/{id}', [ProjectController::class, 'update']);
 Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
 
-// Rutas de la API Collaborations
-Route::get('/collaborations', [CollaborationsController::class, 'index']);
-Route::post('/collaborations', [CollaborationsController::class, 'store']);
-Route::get('/collaborations/{id}', [CollaborationsController::class, 'show']);
-Route::put('/collaborations/{id}', [CollaborationsController::class, 'update']);
-Route::delete('/collaborations/{id}', [CollaborationsController::class, 'destroy']);
-
+//Rutas de la API Links
+Route::get('links', [LinksController::class, 'index']);            
+Route::post('links', [LinksController::class, 'store']);          
+Route::get('links/{id}', [LinksController::class, 'show']);       
+Route::put('links/{id}', [LinksController::class, 'update']);      
+Route::delete('links/{id}', [LinksController::class, 'destroy']); 

@@ -14,6 +14,7 @@ class StoreCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' =>'required|string|max:255',
             'comment' => 'required|string|min:5|max:1000',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ];

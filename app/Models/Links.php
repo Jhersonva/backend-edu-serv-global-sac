@@ -4,18 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
+class Links extends Model
 {
-    protected $table = 'customers';
+    protected $table = 'links';
     protected $fillable = [
         'name',
-        'comment',
+        'description',
+        'url',
     ];
 
     protected $hidden = [
         'created_at',
         'updated_at',
     ];
+
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');

@@ -28,6 +28,7 @@ class CustomerService
         $imageFile = request()->file('image');
 
         $customer = Customer::create([
+            'name' => $data['name'],
             'comment' => $data['comment'],
         ]);
 
@@ -44,6 +45,9 @@ class CustomerService
     {
         $customer = Customer::with('image')->findOrFail($id);
 
+        if (isset($data['name'])) {
+            $customer->name = $data['name'];
+        }
         if (isset($data['comment'])) {
             $customer->comment = $data['comment'];
             $customer->save();
