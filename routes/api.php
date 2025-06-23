@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\Collaborations\CollaborationsController;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsUserAuth;
 use App\Http\Middleware\NoUserExists;
+use App\Models\Collaborations;
 use App\Models\Links;
 
 // Rutas de la API AuthUser
@@ -111,3 +112,10 @@ Route::post('links', [LinksController::class, 'store']);
 Route::get('links/{id}', [LinksController::class, 'show']);       
 Route::put('links/{id}', [LinksController::class, 'update']);      
 Route::delete('links/{id}', [LinksController::class, 'destroy']); 
+
+//Rutas de la Api Collaborations
+Route::get('collaborations', [CollaborationsController::class, 'index']);            
+Route::post('collaborations', [CollaborationsController::class, 'store']);          
+Route::get('collaborations/{id}', [CollaborationsController::class, 'show']);       
+Route::put('collaborations/{id}', [CollaborationsController::class, 'update']);      
+Route::delete('collaborations/{id}', [CollaborationsController::class, 'destroy']); 
