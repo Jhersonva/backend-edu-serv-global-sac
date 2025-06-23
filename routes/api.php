@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\AuthUsers\AuthUserController;
 use App\Http\Controllers\Api\Category\CategoryController;
 use App\Http\Controllers\Api\ServicesCategory\ServicesCategoryController;
 use App\Http\Controllers\Api\Project\ProjectController;
+use App\Http\Controllers\Api\Collaborations\CollaborationsController;
 
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsUserAuth;
@@ -101,4 +102,11 @@ Route::post('/projects', [ProjectController::class, 'store']);
 Route::get('/projects/{id}', [ProjectController::class, 'show']);
 Route::put('/projects/{id}', [ProjectController::class, 'update']);
 Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
+
+// Rutas de la API Collaborations
+Route::get('/collaborations', [CollaborationsController::class, 'index']);
+Route::post('/collaborations', [CollaborationsController::class, 'store']);
+Route::get('/collaborations/{id}', [CollaborationsController::class, 'show']);
+Route::put('/collaborations/{id}', [CollaborationsController::class, 'update']);
+Route::delete('/collaborations/{id}', [CollaborationsController::class, 'destroy']);
 
