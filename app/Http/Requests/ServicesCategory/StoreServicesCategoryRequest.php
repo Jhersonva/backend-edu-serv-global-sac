@@ -14,12 +14,13 @@ class StoreServicesCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-            'benefits' => ['nullable', 'array'],
-            'benefits.*' => ['string'],
-            'id_projects' => ['required', 'exists:projects,id'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'benefits' => 'nullable|array',
+            'benefits.*' => 'string',
+            'project_ids' => 'required|array',
+            'project_ids.*' => 'exists:projects,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ];
     }
 }

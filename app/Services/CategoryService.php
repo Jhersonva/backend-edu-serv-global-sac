@@ -13,28 +13,29 @@ class CategoryService
 
     public function getAllCategory()
     {
-        return Category::with(['image', 'serviceCategory'])->get();
+        return Category::with(['image', 'serviceCategories'])->get();
     }
 
     public function findByIdCategory($id)
     {
-        return Category::with(['image', 'serviceCategory'])->findOrFail($id);
+        return Category::with(['image', 'serviceCategories'])->findOrFail($id);
     }
 
     public function storeCategory(array $data)
     {
-        $category = Category::create([
+       $category = Category::create([
             'name' => $data['name'],
             'description' => $data['description'] ?? null,
-            'id_services_category' => $data['id_services_category'],
         ]);
+
+        $category->serviceCategories()->sync($data['service_category_ids']);
 
         if ($image = request()->file('image')) {
             $path = $this->upload($image, 'categories');
             $category->image()->create(['url' => asset('storage/' . $path)]);
         }
 
-        return $category->load('image');
+        return $category->load('image', 'serviceCategories');
     }
 
     public function updateCategory($id, array $data)
@@ -44,8 +45,11 @@ class CategoryService
         $category->update([
             'name' => $data['name'] ?? $category->name,
             'description' => $data['description'] ?? $category->description,
-            'id_services_category' => $data['id_services_category'] ?? $category->id_services_category,
         ]);
+
+        if (isset($data['service_category_ids'])) {
+            $category->serviceCategories()->sync($data['service_category_ids']);
+        }
 
         if ($image = request()->file('image')) {
             $path = $this->upload($image, 'categories');

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Collaborations extends Model
 {
-    protected $table = 'Collaborations';
+    protected $table = 'collaborations';
     protected $fillable = [
         'name',
         'url',

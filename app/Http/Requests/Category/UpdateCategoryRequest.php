@@ -14,10 +14,11 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'sometimes', 'string', 'max:255',
-            'description' => 'nullable', 'string',
-            'id_services_category' => 'sometimes', 'exists:services_categories,id',
-            'image' => 'nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048',
+            'name' => 'sometimes|string|max:255',
+            'description' => 'nullable|string',
+            'service_category_ids' => 'sometimes|array',
+            'service_category_ids.*' => 'exists:services_category,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ];
     }
 }

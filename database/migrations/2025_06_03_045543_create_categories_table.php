@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255);
             $table->text('description')->nullable();
-            $table->foreignId('id_services_category')->constrained('services_category')->onDelete('cascade');
             $table->timestamps();
         });
     }
