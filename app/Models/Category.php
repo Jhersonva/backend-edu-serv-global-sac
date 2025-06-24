@@ -14,9 +14,9 @@ class Category extends Model
         'updated_at',
     ];
     
-    public function serviceCategory()
+    public function serviceCategories()
     {
-        return $this->belongsTo(ServicesCategory::class, 'id_services_category');
+        return $this->belongsToMany(ServicesCategory::class, 'category_service_category', 'category_id', 'service_category_id');
     }
 
     public function image(): MorphOne

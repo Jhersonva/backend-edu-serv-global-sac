@@ -9,7 +9,7 @@ class ServicesCategory extends Model
 {
     protected $table = 'services_category';
 
-    protected $fillable = ['title', 'description', 'benefits', 'id_projects'];
+    protected $fillable = ['title', 'description', 'benefits'];
 
     protected $hidden = [
         'created_at',
@@ -20,14 +20,14 @@ class ServicesCategory extends Model
         'benefits' => 'array',
     ];
 
-    public function project()
+    public function projects()
     {
-        return $this->belongsTo(Project::class, 'id_projects');
+        return $this->belongsToMany(Project::class, 'project_service_category', 'service_category_id', 'project_id');
     }
 
     public function categories()
     {
-        return $this->hasMany(Category::class, 'id_services_category');
+        return $this->belongsToMany(Category::class, 'category_service_category', 'service_category_id', 'category_id');
     }
 
     public function image(): MorphOne

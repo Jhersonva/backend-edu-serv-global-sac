@@ -21,7 +21,7 @@ class Project extends Model
 
     public function services()
     {
-        return $this->hasMany(ServicesCategory::class, 'id_projects');
+        return $this->belongsToMany(ServicesCategory::class, 'project_service_category', 'project_id', 'service_category_id');
     }
 }
 

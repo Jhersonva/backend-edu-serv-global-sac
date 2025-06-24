@@ -13,7 +13,6 @@ return new class extends Migration
             $table->text('title');
             $table->text('description')->nullable();
             $table->json('benefits')->nullable();
-            $table->foreignId('id_projects')->constrained('projects')->onDelete('cascade');
             $table->timestamps();
         });
     }
